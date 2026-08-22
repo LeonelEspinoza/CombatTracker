@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct entity {
 	char* name;
@@ -49,7 +50,7 @@ int main(){
 	entity ch7 = {"Troll4", 10, 10, 13};
 	entity ch8 = {"Troll5", 10, 10, 30};
 	entity ch9 = {"Troll6", 10, 10, 1};
-	entity group[9] = {ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9};
+	entity group[] = {ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9};
 	sortGroupByInitiative(group, 9);
 	for(int i = 0; i < (sizeof(group) / sizeof(group[0])); i++){
 		entity cha = group[i];
