@@ -65,6 +65,11 @@ int getNodeInitiative(struct node* self){
 	return entity->initiative;
 }
 
+void printNode(struct node* self){
+	struct entity* entity = self->entity;
+	printf("Name: %s, HP: %d, AC: %d, Initiative: %d\n", entity->name, entity->hp, entity->ac, entity->initiative);
+	return;
+}
 	
 struct linkedList {
 	struct node* head;
@@ -108,7 +113,6 @@ void insertRecursive(struct node* head, struct node* node){
 		}
 		node->next = head;
 		head->prev = node;
-		printf("nodo insertado entre nodos\n");
 		return;
 	}
 	if (head->next != NULL){
@@ -117,14 +121,12 @@ void insertRecursive(struct node* head, struct node* node){
 	}
 	head->next = node;
 	node->prev = head;
-	printf("nodo insertado en la cola\n");
 	return;
 }
 
 void insertNode(struct linkedList* self, struct node* node){
 	if (self->head == NULL){
 		self->head = node;
-		printf("primer nodo insertado\n");
 	} else {
 		insertRecursive(self->head,node);
 	}
@@ -143,8 +145,7 @@ void printRecursive(struct node* head, int i){
 	if(head->entity == NULL){
 		printf("Node without entity\n");
 	} else {
-		struct entity* entity = head->entity;
-		printf("%s\n",entity->name);
+		printNode(head);
 	}
 	if (!head->next) {
 		printf("end of list\n");
@@ -175,6 +176,7 @@ void main(){
 	insertNode(l,n1);
 	insertNode(l,n2);
 	insertNode(l,n3);
+	printLinkedList(l);
 	insertNode(l,n4);
 	printLinkedList(l);
 	cleanupLinkedList(l);
