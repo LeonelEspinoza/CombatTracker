@@ -1,3 +1,6 @@
+#ifndef ENTITY_LIST_H
+#define ENTITY_LIST_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -7,6 +10,25 @@ struct entity {
 	int ac;
 	int initiative;
 };
+
+struct entity* createEntity(char name[], int hp, int ac, int initiative){
+	struct entity* entity = NULL;
+	entity = (struct entity*) malloc(sizeof(struct entity));
+	if(!entity){
+		perror("Memory allocation for entity failed\n");
+		return NULL;
+	}
+	entity->name = name;
+	entity->hp = hp;
+	entity->ac = ac;
+	entity->initiative = initiative;
+	return entity;
+}
+
+void cleanupEntity(struct entity* entity){
+	free(entity);
+	return;
+}
 
 struct node {
 	struct entity* entity;
@@ -18,7 +40,7 @@ struct node* createNode(struct entity* entity){
 	struct node* node = NULL;
 	node = (struct node *) malloc(sizeof(struct node));
 	if(!node){
-		printf("Memory allocation failed\n");
+		perror("Memory allocation for node failed\n");
 		return NULL;
 	}
 	node->entity = entity;
@@ -36,6 +58,7 @@ void cleanupNode(struct node* self){
 	if(prev != NULL){
 		prev->next = next;
 	}
+	cleanupEntity(self->entity);
 	free(self);
 	return;
 }
@@ -161,24 +184,5 @@ void printLinkedList(struct linkedList* list){
 	return;
 }
 
-void main(){
-	struct entity p1 = {"player1", 10, 12, 5}; 
-	struct entity p2 = {"player2", 13, 10, 15}; 
-	struct entity p3 = {"player3", 12, 11, 25}; 
-	struct entity p4 = {"player4", 10, 15, 8}; 
+#endif
 
-	struct node* n1 = createNode(&p1);
-	struct node* n2 = createNode(&p2);
-	struct node* n3 = createNode(&p3);
-	struct node* n4 = createNode(&p4);
-	
-	struct linkedList* l = initLinkedList();
-	insertNode(l,n1);
-	insertNode(l,n2);
-	insertNode(l,n3);
-	printLinkedList(l);
-	insertNode(l,n4);
-	printLinkedList(l);
-	cleanupLinkedList(l);
-	return;
-}
