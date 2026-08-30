@@ -117,6 +117,7 @@ struct linkedList* initLinkedList(){
 	self->current = NULL;
 	self->size = 0;
 	self->round = 0;
+	return self;
 }
 
 /*

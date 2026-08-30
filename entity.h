@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define MAX_NAME_SIZE 50
+
 /*
 * Entity structure
 	* Name string
@@ -11,7 +13,7 @@
 	* Initiative
 */
 struct entity {
-	char* name;
+	char name[MAX_NAME_SIZE];
 	int hp;
 	int ac;
 	int initiative;
@@ -23,13 +25,17 @@ struct entity {
 	* Sets object's attributes with arguments values
 */
 struct entity* createEntity(char* name, int hp, int ac, int initiative){
+	if (strlen(name) >= MAX_NAME_SIZE){
+		perror("Name length given exceds maximum name size\n");
+		return NULL;
+	}
 	struct entity* entity = NULL;
 	entity = (struct entity*) malloc(sizeof(struct entity));
 	if(!entity){
 		perror("Memory allocation for entity failed\n");
 		return NULL;
 	}
-	entity->name = name;
+	strcpy(entity->name, name);
 	entity->hp = hp;
 	entity->ac = ac;
 	entity->initiative = initiative;
@@ -42,7 +48,6 @@ struct entity* createEntity(char* name, int hp, int ac, int initiative){
 	* Nullifies attributes
 */
 void cleanupEntity(struct entity* entity){
-	entity->name = NULL;
 	entity->hp = 0;
 	entity->ac = 0;
 	entity->initiative = 0;
