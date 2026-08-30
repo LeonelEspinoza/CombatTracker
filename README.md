@@ -2,7 +2,7 @@
 Simple Initiative tracker for DND in C.
 
 ## MVP Requirements
-- [ ] Can add entities and sort them by initiative.
+- [X] Can add entities and sort them by initiative.
 - [ ] Can delete entities mantaining initiative order.
 - [ ] Can go forward and backwards in initiative order. 
 - [ ] Terminal User Interface.
