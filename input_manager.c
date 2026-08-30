@@ -7,7 +7,7 @@
 bool closeProgram;
 
 void getUserInput(char* buff, size_t size, char* prompt){
-	printf("\n--- WAITING FOR USER INPUT ---\n");
+	//printf("\n--- WAITING FOR USER INPUT ---\n");
 	printf("%s\n", prompt);
 	while(fgets(buff, size, stdin) == NULL){
 		printf("Error reading user input. Try again.\n");
@@ -18,9 +18,13 @@ void getUserInput(char* buff, size_t size, char* prompt){
 
 void getCharacterStats(char name[], int* hp, int* ac, int* initiative){
 	getUserInput(name, MAX_NAME_SIZE, "Enter character's name: ");
-	*hp=10;
-	*ac=10;
-	*initiative=10;
+	char buff[4];
+	getUserInput(buff, sizeof(buff), "Enter character's hp: ");
+	*hp=atoi(buff);
+	getUserInput(buff, sizeof(buff), "Enter character's ac: ");
+	*ac=atoi(buff);
+	getUserInput(buff, sizeof(buff), "Enter character's initiative: ");
+	*initiative=atoi(buff);
 	return;
 }
 
@@ -67,7 +71,7 @@ int main(){
 		getUserInput(
 			buff,
 			sizeof(buff),
-			"(a)dd default character\n(p)rint list\n(e)xit\n"
+			"(a)dd character\n(p)rint list\n(e)xit\n"
 		);
 		inputParser(buff, list);
 	}
